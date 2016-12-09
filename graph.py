@@ -18,7 +18,7 @@ for host in hosts:
   for child in hosts[host]:
     r_child = re.sub(r'^http[s]?://', '', child)
     if not hosts.get(child) and args.min_links > 0: continue
-    if len(hosts.get(child)) <= args.min_links or len(hosts.get(host)) <= args.min_links: continue
+    if (hosts.get(child) and len(hosts.get(child)) <= args.min_links) or len(hosts.get(host)) <= args.min_links: continue
     if r_host != r_child: output += '"' + r_host + '" -> "' + r_child + '",'
 
 output += "}, VertexLabeling -> True]"
