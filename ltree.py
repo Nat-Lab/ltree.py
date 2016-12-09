@@ -52,7 +52,9 @@ def ltrace(url, depth):
   if not check(url): 
     print(" " * depth + "< " + url + " (check does not pass)")
     return
-  if depth >= max_depth: return
+  if depth >= max_depth: 
+    print(" " * depth + "< " + url + " (max depth reached)")
+    return
   try:
     this_html = urlopen(url, timeout=max_time)
     this_soup = BeautifulSoup(this_html, "lxml")
@@ -61,11 +63,13 @@ def ltrace(url, depth):
       this_host = re.match('^http[s]?://[^/]*', this_link).group(0)
       if this_link == this_host or this_host + "/" == this_link: 
         if not route.get(url): route[url] = []
-        if this_host in route[url]: return
+        if this_host in route[url]: 
+          print(" " * depth + "< " + url + " (visited)")
+          return
         route[url].append(this_host)
         ltrace(this_host, depth+1)
   except Exception as err:
-    print(" " * depth + "< " + url + " (got Exception)")
+    print(" " * depth + "< " + url + " (got exception)")
     return
   print(" " * depth + "< " + url)
   return
