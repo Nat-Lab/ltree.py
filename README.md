@@ -33,13 +33,27 @@ optional arguments:
 附帶一個小工具，用於轉換輸出的 json 到 Mathematica 的 GraphPlot。
 
 ```
-usage: graph.py [-h] json
+usage: graph.py [-h] [-l MIN_LINKS] json
 
 A helper script to generate Mathematica's GraphPlot function from json.
 
 positional arguments:
-  json        the file to graph
+  json                  the file to graph
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  -l MIN_LINKS, --min-links MIN_LINKS
+                        only nodes with more then MIN_LINKS edges will be
+                        shown. (default: 0)
 ```
+
+樣例：使用下面的指令生成了：
+
+```
+% ./ltree.py -d10 -a50000 -t7 -i "gov.cn" http://www.lingoys.com lingoys.json
+% ./graph.py -l 1 lingoys.json
+```
+
+![Sample Graph](https://raw.githubusercontent.com/Nat-Lab/ltree.py/master/sample.png)
+
+
